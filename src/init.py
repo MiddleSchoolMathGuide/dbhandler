@@ -13,6 +13,7 @@ import pymongo.database
 
 from .const import DBNAME, MONGO_ADDRESS
 from . import ghandler as gh
+from .auth import session
 
 
 def init() -> None:
@@ -23,6 +24,8 @@ def init() -> None:
         _create_db_structure()
         logging.info('Database created!')
     gh.db = gh.client[DBNAME]
+    session.cleanup_sessions()
+
     logging.info('MongoDB init done')
 
 
