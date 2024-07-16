@@ -28,6 +28,9 @@ def is_expired(session_id: str) -> bool:
     True means session expired
     '''
 
+    if len(session_id) == 0:
+        return True
+
     session = ghandler.db['session'].find_one({"_id": session_id})
     if not session:
         return True
