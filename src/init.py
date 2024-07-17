@@ -44,7 +44,6 @@ def _create_db_structure() -> None:
         'updated_at': time(),
         'profile': {
             'name': 'Admin',
-            'avatar_url': None,
             'bio': 'Admin of MSMG'
         }
     })
