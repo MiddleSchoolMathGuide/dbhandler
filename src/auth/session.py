@@ -2,6 +2,7 @@
 Manages session creation and timeout
 '''
 
+from bson import ObjectId
 from datetime import datetime, timedelta
 
 from .. import const, ghandler
@@ -31,13 +32,13 @@ def is_expired(session_id: str) -> bool:
     if len(session_id) == 0:
         return True
 
-    session = ghandler.db['session'].find_one({"_id": session_id})
+    session = ghandler.db['session'].find_one({'_id': ObjectId(session_id)})
     if not session:
         return True
 
     if session.get('expires_at') < datetime.now():
         # Delete expired session
-        ghandler.db['session'].delete_one({'_id': session_id})
+        ghandler.db['session'].delete_one({'_id': ObjectId(session_id)})
         return True
 
     return False
