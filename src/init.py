@@ -33,6 +33,13 @@ def _create_db_structure() -> None:
     db = gh.client.get_database(DBNAME)
     users = db.create_collection('users')
     _ = db.create_collection('session')
+
+    # Edu
+    _ = db.create_collection('topics')
+    _ = db.create_collection('units')
+    _ = db.create_collection('lessons')
+    _ = db.create_collection('widgets')
+
     _create_collection_indexes(users=users)
 
     users.insert_one({
