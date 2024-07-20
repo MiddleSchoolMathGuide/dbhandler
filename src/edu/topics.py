@@ -26,7 +26,7 @@ def set(topic_data: dict[str, any]) -> str:
 
     unit_ids = []
     for unit in units_:
-        units.set(topic_id, unit)
+        unit_ids.append(units.set(topic_id, unit))
 
     set_unit_ids(topic_id, unit_ids)
     return topic_id
