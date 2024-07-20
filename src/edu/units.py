@@ -8,13 +8,14 @@ from .. import ghandler
 from . import lessons
 
 
-def set(id: str, unit_data: dict[str, any]) -> str:
+def set(id: ObjectId, unit_data: dict[str, any]) -> str:
     '''
     Set fields of a unit
     '''
 
     lessons_ = unit_data.pop('lessons', [])
     unit_id = ObjectId(unit_data.pop('_id', None))
+    unit_data.pop('topic_id', None)
 
     ghandler.db['units'].update_one(
         {'_id': unit_id},

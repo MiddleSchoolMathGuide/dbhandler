@@ -6,12 +6,13 @@ from bson import ObjectId
 from .. import ghandler
 
 
-def set(id: str, widget_data: dict[str, any]) -> str:
+def set(id: ObjectId, widget_data: dict[str, any]) -> str:
     '''
     Set fields of a widget
     '''
 
     widget_id = ObjectId(widget_data.pop('_id', None))
+    widget_data.pop('lesson_id')
 
     ghandler.db['widgets'].update_one(
         {'_id': widget_id},

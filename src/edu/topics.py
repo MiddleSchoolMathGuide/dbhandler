@@ -37,12 +37,12 @@ def delete(title: str) -> None:
     ghandler.db['topics'].delete_one({'title': title})
 
 
-def set_unit_ids(id: ObjectId, units_ids: list[str]) -> None:
+def set_unit_ids(id: ObjectId, unit_ids: list[str]) -> None:
     '''
     Set unit ids of a topic
     '''
     ghandler.db['topics'].update_one(
-        {'_id': id}, {'$set': {'units': units_ids}}
+        {'_id': id}, {'$set': {'units': unit_ids}}
     )
 
 
