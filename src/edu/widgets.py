@@ -12,7 +12,7 @@ def set(id: ObjectId, widget_data: dict[str, any]) -> str:
     '''
 
     widget_id = ObjectId(widget_data.pop('_id', None))
-    widget_data.pop('lesson_id')
+    widget_data.pop('lesson_id', None)
 
     ghandler.db['widgets'].update_one(
         {'_id': widget_id},

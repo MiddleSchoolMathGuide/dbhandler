@@ -15,7 +15,7 @@ def set(id: ObjectId, lesson_data: dict[str, any]) -> str:
 
     widgets_ = lesson_data.pop('widgets', [])
     lesson_id = ObjectId(lesson_data.pop('_id', None))
-    lesson_data.pop('unit_id')
+    lesson_data.pop('unit_id', None)
 
     ghandler.db['units'].update_one(
         {'_id': lesson_id},
