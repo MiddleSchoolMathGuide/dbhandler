@@ -13,15 +13,13 @@ def set(topic_data: dict[str, any]) -> str:
     Set fields of a topic
     '''
 
-    units_ = topic_data.pop('units')
-    topic_id = (
-        ghandler.db['topics']
-        .update_one(
-            {'_id': ObjectId(topic_data.get('_id'))},
-            {'$set': topic_data},
-            upsert=True
-        )
-        .upserted_id or topic_data.get('_id')
+    units_ = topic_data.pop('units', [])
+    topic_id = ObjectId(topic_data.pop('_id', None))
+
+    ghandler.db['topics'].update_one(
+        {'_id': topic_id},
+        {'$set': topic_data},
+        upsert=True
     )
 
     unit_ids = []
@@ -39,7 +37,7 @@ def delete(title: str) -> None:
     ghandler.db['topics'].delete_one({'title': title})
 
 
-def set_unit_ids(id: str, units_ids: list[str]) -> None:
+def set_unit_ids(id: ObjectId, units_ids: list[str]) -> None:
     '''
     Set unit ids of a topic
     '''
@@ -53,7 +51,7 @@ def get_units(title: str) -> None:
     return list(ghandler.db['units'].aggregate(pipeline))
 
 
-def get_topic(title: str) -> dict[str, str]:
+def get_topic_by_title(title: str) -> dict[str, str]:
     topic = ghandler.db['topics'].find_one({'title': title})
     if not topic:
         return {'ok': False, 'msg': 'Topic does not exist', 'data': None}

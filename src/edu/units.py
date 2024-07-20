@@ -13,15 +13,13 @@ def set(id: str, unit_data: dict[str, any]) -> str:
     Set fields of a unit
     '''
 
-    lessons_ = unit_data.pop('lessons')
-    unit_id = (
-        ghandler.db['units']
-        .update_one(
-            {'_id': ObjectId(unit_data.get('_id'))},
-            {'$set': dict({'topic_id': id}, **unit_data)},
-            upsert=True
-        )
-        .upserted_id or unit_data.get('_id')
+    lessons_ = unit_data.pop('lessons', [])
+    unit_id = ObjectId(unit_data.pop('_id', None))
+
+    ghandler.db['units'].update_one(
+        {'_id': unit_id},
+        {'$set': dict({'topic_id': id}, **unit_data)},
+        upsert=True
     )
 
     lesson_ids = []
@@ -39,7 +37,7 @@ def delete(title: str) -> None:
     ghandler.db['units'].delete_one({'title': title})
 
 
-def set_lesson_ids(id: str, lesson_ids: list[str]) -> None:
+def set_lesson_ids(id: ObjectId, lesson_ids: list[str]) -> None:
     '''
     Set lesson ids of a unit
     '''
@@ -48,7 +46,7 @@ def set_lesson_ids(id: str, lesson_ids: list[str]) -> None:
     )
 
 
-def get_units(id: str) -> tuple[dict[str, any], ...]:
+def get_units(id: ObjectId) -> tuple[dict[str, any], ...]:
     '''
     Return all the units (and underlying data) connected to a topic
     '''
