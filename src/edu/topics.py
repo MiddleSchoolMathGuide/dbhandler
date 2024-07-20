@@ -21,7 +21,7 @@ def set(topic_data: dict[str, any]) -> str:
             {'$set': topic_data},
             upsert=True
         )
-        .upserted_id
+        .upserted_id or topic_data.get('_id')
     )
 
     unit_ids = []

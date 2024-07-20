@@ -15,10 +15,10 @@ def set(id: str, widget_data: dict[str, any]) -> str:
         ghandler.db['widgets']
         .update_one(
             {'_id': widget_data.get('_id') or ObjectId()},
-            {'$set': {'lesson': id}.update(widget_data)},
+            {'$set': dict({'lesson_id': id}, **widget_data)},
             upsert=True
         )
-        .upserted_id
+        .upserted_id or widget_data.get('_id')
     )
 
     return widget_id

@@ -18,10 +18,10 @@ def set(id: str, unit_data: dict[str, any]) -> str:
         ghandler.db['units']
         .update_one(
             {'_id': unit_data.get('_id') or ObjectId()},
-            {'$set': {'topic_id': id}.update(unit_data)},
+            {'$set': dict({'topic_id': id}, **unit_data)},
             upsert=True
         )
-        .upserted_id
+        .upserted_id or unit_data.get('_id')
     )
 
     lesson_ids = []
