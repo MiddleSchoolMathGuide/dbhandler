@@ -15,7 +15,7 @@ def set(id: str, lesson_data: dict[str, any]) -> str:
     lesson_id = (
         ghandler.db['units']
         .update_one(
-            {'_id': lesson_data.get('_id') or ObjectId()},
+            {'_id': ObjectId(lesson_data.get('_id'))},
             {'$set': dict({'unit_id': id}, **lesson_data)},
             upsert=True
         )

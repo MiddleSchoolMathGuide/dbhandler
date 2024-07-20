@@ -17,7 +17,7 @@ def set(topic_data: dict[str, any]) -> str:
     topic_id = (
         ghandler.db['topics']
         .update_one(
-            {'_id': topic_data.get('_id') or ObjectId()},
+            {'_id': ObjectId(topic_data.get('_id'))},
             {'$set': topic_data},
             upsert=True
         )
