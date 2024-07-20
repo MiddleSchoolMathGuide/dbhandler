@@ -53,6 +53,6 @@ def get_units(id: ObjectId) -> tuple[dict[str, any], ...]:
     '''
     units = tuple(ghandler.db['units'].find({'topic_id': id}))
     for unit in units:
-        units[0]['lessons'] = lessons.get_lessons(unit.get('_id'))
+        unit['lessons'] = lessons.get_lessons(unit.get('_id'))
 
     return units
