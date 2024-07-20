@@ -46,7 +46,7 @@ def set_lesson_ids(id: str, widget_ids: list[str]) -> None:
     )
 
 
-def get_units(id: str) -> tuple[dict[str, any], ...]:
+def get_lessons(id: str) -> tuple[dict[str, any], ...]:
     '''
     Return all the lessons (and underlying data) connected to a unit
     '''

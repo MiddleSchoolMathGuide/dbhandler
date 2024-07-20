@@ -24,7 +24,7 @@ def set(id: str, widget_data: dict[str, any]) -> str:
     return widget_id
 
 
-def get_units(id: str) -> tuple[dict[str, any], ...]:
+def get_widgets(id: str) -> tuple[dict[str, any], ...]:
     '''
     Return all the widgets connected to a lesson
     '''
