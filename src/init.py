@@ -34,7 +34,7 @@ def _create_db_structure() -> None:
     users = db.create_collection('users')
     _ = db.create_collection('session')
 
-    # Edu
+    # Topic
     _ = db.create_collection('topics')
     _ = db.create_collection('units')
     _ = db.create_collection('lessons')
