@@ -47,11 +47,13 @@ def set_lesson_ids(id: ObjectId, widget_ids: list[str]) -> None:
     )
 
 
-def get_lessons(id: ObjectId) -> tuple[dict[str, any], ...]:
+def get_lessons(id: ObjectId) -> list[dict[str, any]]:
     '''
     Return all the lessons (and underlying data) connected to a unit
     '''
-    lessons = tuple(ghandler.db['lessons'].find({'unit_id': id}))
+    lessons = list(ghandler.db['lessons'].find({'unit_id': id}))
+    lessons.sort(key=lambda x: x.get('index', 0))
+
     for lesson in lessons:
         lesson['widgets'] = widgets.get_widgets(lesson.get('_id'))
 
