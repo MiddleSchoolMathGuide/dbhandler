@@ -47,11 +47,14 @@ def set_lesson_ids(id: ObjectId, lesson_ids: list[str]) -> None:
     )
 
 
-def get_units(id: ObjectId) -> tuple[dict[str, any], ...]:
+def get_units(id: ObjectId) -> list[dict[str, any]]:
     '''
     Return all the units (and underlying data) connected to a topic
     '''
-    units = tuple(ghandler.db['units'].find({'topic_id': id}))
+
+    units = list(ghandler.db['units'].find({'topic_id': id}))
+    units.sort(key=lambda x: x.get('index', 0))
+
     for unit in units:
         unit['lessons'] = lessons.get_lessons(unit.get('_id'))
 
