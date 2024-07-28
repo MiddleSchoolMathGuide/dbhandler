@@ -9,3 +9,6 @@ MONGO_ADDRESS: str = f'mongodb://{MONGO_HOST}:{MONGO_PORT}/'
 
 # Session timeout in seconds
 TIMEOUT: int = 3600
+
+# Default privilige level on user creation
+DEFAULT_PRIVILIGE_LEVEL: str = 'user'
