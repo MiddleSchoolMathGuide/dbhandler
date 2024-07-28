@@ -42,15 +42,18 @@ def _create_db_structure() -> None:
 
     _create_collection_indexes(users=users)
 
+    time_created = int(time())
     users.insert_one({
         'username': 'admin',
+        'fullname': 'admin',
         'password_hash': sha256(b'admin').hexdigest(),
         'email': None,
         'privilige_level': 'admin',
-        'created_at': time(),
-        'updated_at': time(),
+        'created_at': time_created,
+        'updated_at': time_created,
         'profile': {
-            'name': 'Admin',
+            'firstname': 'Admin',
+            'lastname': '',
             'bio': 'Admin of MSMG'
         }
     })
