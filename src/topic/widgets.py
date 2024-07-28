@@ -23,8 +23,10 @@ def set(id: ObjectId, widget_data: dict[str, any]) -> str:
     return widget_id
 
 
-def get_widgets(id: ObjectId) -> tuple[dict[str, any], ...]:
+def get_widgets(id: ObjectId) -> list[dict[str, any]]:
     '''
     Return all the widgets connected to a lesson
     '''
-    return tuple(ghandler.db['widgets'].find({'lesson_id': id}))
+    widgets = list(ghandler.db['widgets'].find({'lesson_id': id}))
+    widgets.sort(key=lambda x: x.get('index', 0))
+    return widgets
