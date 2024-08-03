@@ -9,6 +9,15 @@ from . import lessons
 from . import utils
 
 
+def get_unit_by_title(title: str) -> dict[str, str]:
+    unit = ghandler.db['units'].find_one({'title': utils.normalize_title(title)})
+    if not unit:
+        return {'ok': False, 'msg': 'Unit does not exist', 'data': None}
+
+    unit['lessons'] = lessons.get_lessons(unit.get('_id'))
+    return {'ok': True, 'msg': 'Success', 'data': unit}
+
+
 def set(id: ObjectId, unit_data: dict[str, any]) -> str:
     '''
     Set fields of a unit
