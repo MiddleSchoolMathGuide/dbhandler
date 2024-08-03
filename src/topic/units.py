@@ -60,3 +60,16 @@ def get_units(id: ObjectId) -> list[dict[str, any]]:
         unit['lessons'] = lessons.get_lessons(unit.get('_id'))
 
     return units
+
+
+def get_all(topic_id: str) -> tuple[dict, ...]:
+    '''
+    Retrieves title and description for all units under a topic
+    '''
+
+    return tuple(
+        document
+        for document in ghandler.db['topics'].find(
+            {'topic_id': topic_id}, {'title': 1, 'description': 1, '_id': 0}
+        )
+    )
