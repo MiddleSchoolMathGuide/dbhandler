@@ -6,6 +6,7 @@ from bson import ObjectId
 from .. import ghandler
 
 from . import lessons
+from . import utils
 
 
 def set(id: ObjectId, unit_data: dict[str, any]) -> str:
@@ -35,7 +36,7 @@ def delete(title: str) -> None:
     '''
     Delete a unit
     '''
-    ghandler.db['units'].delete_one({'title': title})
+    ghandler.db['units'].delete_one({'title': utils.normalize_title(title)})
 
 
 def set_lesson_ids(id: ObjectId, lesson_ids: list[str]) -> None:
