@@ -70,6 +70,6 @@ def get_all(topic_id: str) -> tuple[dict, ...]:
     return tuple(
         document
         for document in ghandler.db['topics'].find(
-            {'topic_id': topic_id}, {'title': 1, 'description': 1, '_id': 0}
+            {'topic_id': topic_id}, {'title': 1, 'description': 1, 'index': 1, '_id': 0}
         )
     )
