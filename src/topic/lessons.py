@@ -60,7 +60,7 @@ def get_lessons(id: ObjectId) -> list[dict[str, any]]:
     return lessons
 
 
-def get_all(unit_id: str) -> tuple[dict, ...]:
+def get_all(unit_id: ObjectId) -> tuple[dict, ...]:
     '''
     Retrieves title and description for all lessons under a unit
     '''

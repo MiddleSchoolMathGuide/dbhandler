@@ -62,7 +62,7 @@ def get_units(id: ObjectId) -> list[dict[str, any]]:
     return units
 
 
-def get_all(topic_id: str) -> tuple[dict, ...]:
+def get_all(topic_id: ObjectId) -> tuple[dict, ...]:
     '''
     Retrieves title and description for all units under a topic
     '''
