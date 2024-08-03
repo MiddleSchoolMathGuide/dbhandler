@@ -87,13 +87,11 @@ def get_by_titles(
         logging.info('No lesson found with the given title and unit_id.')
         return {'ok': False, 'msg': 'No lesson found with the given title and unit_id'}
 
-    widgets.get_widgets(lesson['_id'])
+    topic['units'] = (unit,)
+    unit['lessons'] = (lesson,)
+    lesson['widgets'] = widgets.get_widgets(lesson['_id'])
     return {
         'ok': False,
         'msg': 'No lesson found with the given title and unit_id',
-        'data': {
-            'topic': topic,
-            'unit': unit,
-            'lesson': lesson,
-        },
+        'data': topic,
     }
