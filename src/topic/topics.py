@@ -96,8 +96,8 @@ def get_by_titles(
     unit['lessons'] = (lesson,)
     lesson['widgets'] = widgets.get_widgets(lesson['_id'])
     return {
-        'ok': False,
-        'msg': 'No lesson found with the given title and unit_id',
+        'ok': True,
+        'msg': 'Success',
         'data': topic,
     }
 
