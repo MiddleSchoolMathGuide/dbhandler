@@ -21,7 +21,7 @@ def get_unit_by_title(title: str) -> dict[str, str]:
 def get_id_by_title(topic_id: ObjectId, title: str) -> ObjectId:
     return ghandler.db['units'].find_one(
         {'topic_id': topic_id, 'title': utils.normalize_title(title)}
-    )
+    ).get('_id')
 
 
 def set(id: ObjectId, unit_data: dict[str, any]) -> str:
