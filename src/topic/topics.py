@@ -54,7 +54,11 @@ def get_units(title: str) -> None:
 
 
 def get_id_by_title(title: str) -> ObjectId | None:
-    return ghandler.db['topics'].find_one({'title': utils.normalize_title(title)})
+    return (
+        ghandler.db['topics']
+        .find_one({'title': utils.normalize_title(title)})
+        .get('_id')
+    )
 
 
 def get_topic_by_title(title: str) -> dict[str, str]:
