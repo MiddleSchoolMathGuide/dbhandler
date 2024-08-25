@@ -14,7 +14,7 @@ from . import utils
 from . import widgets
 
 
-def set(topic_data: dict[str, any]) -> str:
+def set(topic_data: dict[str, any]) -> ObjectId:
     '''
     Set fields of a topic
     '''
@@ -51,6 +51,10 @@ def set_unit_ids(id: ObjectId, unit_ids: list[str]) -> None:
 def get_units(title: str) -> None:
     pipeline = [{'$match': {'tilte': utils.normalize_title(title)}}]
     return list(ghandler.db['units'].aggregate(pipeline))
+
+
+def get_id_by_title(title: str) -> ObjectId | None:
+    return ghandler.db['topics'].find_one({'title': utils.normalize_title(title)})
 
 
 def get_topic_by_title(title: str) -> dict[str, str]:

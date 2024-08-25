@@ -18,6 +18,12 @@ def get_unit_by_title(title: str) -> dict[str, str]:
     return {'ok': True, 'msg': 'Success', 'data': unit}
 
 
+def get_id_by_title(topic_id: ObjectId, title: str) -> ObjectId:
+    return ghandler.db['units'].find_one(
+        {'topic_id': topic_id, 'title': utils.normalize_title(title)}
+    )
+
+
 def set(id: ObjectId, unit_data: dict[str, any]) -> str:
     '''
     Set fields of a unit
@@ -28,9 +34,7 @@ def set(id: ObjectId, unit_data: dict[str, any]) -> str:
     unit_data.pop('topic_id', None)
 
     ghandler.db['units'].update_one(
-        {'_id': unit_id},
-        {'$set': dict({'topic_id': id}, **unit_data)},
-        upsert=True
+        {'_id': unit_id}, {'$set': dict({'topic_id': id}, **unit_data)}, upsert=True
     )
 
     lesson_ids = []
@@ -52,9 +56,7 @@ def set_lesson_ids(id: ObjectId, lesson_ids: list[str]) -> None:
     '''
     Set lesson ids of a unit
     '''
-    ghandler.db['units'].update_one(
-        {'_id': id}, {'$set': {'lessons': lesson_ids}}
-    )
+    ghandler.db['units'].update_one({'_id': id}, {'$set': {'lessons': lesson_ids}})
 
 
 def get_units(id: ObjectId) -> list[dict[str, any]]:
