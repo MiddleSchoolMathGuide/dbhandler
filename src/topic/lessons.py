@@ -67,7 +67,7 @@ def get_all(unit_id: ObjectId) -> tuple[dict, ...]:
 
     return tuple(
         document
-        for document in ghandler.db['topics'].find(
+        for document in ghandler.db['lessons'].find(
             {'unit_id': unit_id}, {'title': 1, 'description': 1, 'index': 1, '_id': 0}
         )
     )
