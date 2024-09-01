@@ -113,3 +113,22 @@ def get_all() -> tuple[dict, ...]:
             {}, {'title': 1, 'description': 1, '_id': 0}
         )
     )
+
+
+def search(tag: str) -> tuple[dict, ...]:
+    '''
+    Retrieves topics based on tag
+    '''
+
+    return tuple(
+        document
+        for document in ghandler.db['topics'].find(
+            {
+                '$or': [
+                    {'title': {'$regex': tag, '$options': 'i'}},
+                    {'description': {'$regex': tag, '$options': 'i'}},
+                ]
+            },
+            {'title': 1, 'description': 1, '_id': 0},
+        )
+    )

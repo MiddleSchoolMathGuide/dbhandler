@@ -85,3 +85,22 @@ def get_all(topic_id: ObjectId) -> tuple[dict, ...]:
             {'topic_id': topic_id}, {'title': 1, 'description': 1, 'index': 1, '_id': 0}
         )
     )
+
+
+def search(tag: str) -> tuple[dict, ...]:
+    '''
+    Retrieves units based on tag
+    '''
+
+    return tuple(
+        document
+        for document in ghandler.db['units'].find(
+            {
+                '$or': [
+                    {'title': {'$regex': tag, '$options': 'i'}},
+                    {'description': {'$regex': tag, '$options': 'i'}},
+                ]
+            },
+            {'title': 1, 'description': 1, '_id': 0},
+        )
+    )
