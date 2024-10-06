@@ -74,7 +74,7 @@ def get_units(id: ObjectId) -> list[dict[str, any]]:
     return units
 
 
-def get_all(topic_id: ObjectId) -> tuple[dict, ...]:
+def get_all(topic_id: ObjectId, include_id: bool = False) -> tuple[dict, ...]:
     '''
     Retrieves title and description for all units under a topic
     '''
@@ -82,7 +82,7 @@ def get_all(topic_id: ObjectId) -> tuple[dict, ...]:
     return tuple(
         document
         for document in ghandler.db['units'].find(
-            {'topic_id': topic_id}, {'title': 1, 'description': 1, 'index': 1, '_id': 0}
+            {'topic_id': topic_id}, {'title': 1, 'description': 1, 'index': 1, '_id': include_id}
         )
     )
 
